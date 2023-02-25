@@ -89,6 +89,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -162,20 +163,29 @@
           const option = param.options[optionId];
           console.log(optionId, option);
 
-          if(!option.default && formData[paramId].includes(optionId)) {
-            price = price + option.price;
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+          if(optionSelected) {
+            if(option.default !== true) {
+              price += option.price
+            }
+          } else if (option.default == true) {
+            price -= option.price;
           }
 
-          if(option.default && !formData[paramId].includes(optionId)) {
-            price = price - option.price;
+          const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          if(optionImage){
+            if(optionSelected){
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            } else {
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
           }
         }
+        // update calculated price in the HTML
+        thisProduct.priceElem.innerHTML = price;
       }
-      // update calculated price in the HTML
-      thisProduct.priceElem.innerHTML = price;
     }
   }
-
   const app = {
     initMenu: function(){
       const thisApp = this;
@@ -203,7 +213,6 @@
       thisApp.initMenu();
     },
   };
-
   app.init();
 
 }
