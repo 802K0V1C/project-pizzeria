@@ -252,7 +252,7 @@
         name: thisProduct.name,
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
-        price: thisProduct.priceSingle*thisProduct.amount,
+        price: thisProduct.priceSingle*thisProduct.amountWidget.value,
         params: thisProduct.prepareCartProductParams(),
       };
       return(productSummary);
@@ -285,7 +285,7 @@
           }
         }
       }
-      return params;
+      return (params);
     }
   }
   class AmountWidget{
