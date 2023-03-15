@@ -249,7 +249,7 @@
 
       const productSummary = {
         id: thisProduct.id,
-        name: thisProduct.name,
+        name: thisProduct.data.name,
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
         price: thisProduct.priceSingle*thisProduct.amountWidget.value,
@@ -422,10 +422,10 @@
       const thisCartProduct = this;
 
       thisCartProduct.dom = {
-        wrapper: element
+        wrapper: element,
         amountWidget: element.querySelector(select.cartProduct.amountWidget),
         price: element.querySelector(select.cartProduct.price),
-        edit: element.querySelector(cartProduct.edit),
+        edit: element.querySelector(select.cartProduct.edit),
         remove: element.querySelector(select.cartProduct.remove),
       };
     }
