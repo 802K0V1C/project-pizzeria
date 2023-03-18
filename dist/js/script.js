@@ -297,8 +297,8 @@
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
 
-      console.log('amountWidget:', thisWidget);
-      console.log('constructor arguments:', element);
+      // console.log('amountWidget:', thisWidget);
+      // console.log('constructor arguments:', element);
     }
 
 
@@ -363,7 +363,7 @@
       thisCart.getElements(element);
       thisCart.initActions();
 
-      console.log('new Cart', thisCart);
+      // console.log('new Cart', thisCart);
     }
 
     getElements(element){
@@ -399,6 +399,10 @@
       thisCart.dom.productList.appendChild(generatedDOM);
 
       console.log('addingproduct', menuProduct);
+
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+
+      console.log('thisCart.products', thisCart.products);
     }
   }
 
@@ -412,7 +416,9 @@
       thisCartProduct.priceSingle = menuProduct.priceSingle,
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.params = menuProduct.params;
+
       thisCartProduct.getElements(element);
+      thisCartProduct.initAmountWidget();
 
 
       console.log('thisCartProduct', thisCartProduct);
@@ -429,6 +435,17 @@
         remove: element.querySelector(select.cartProduct.remove),
       };
     }
+    initAmountWidget(){
+      const thisCartProduct = this;
+
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidgetElem);
+      thisCartProduct.dom.amountWidgetElem.addEventListener('updated', function(){
+
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
+        thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle;
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      });
+    }
   }
 
   const app = {
@@ -440,7 +457,7 @@
 
     initMenu: function(){
       const thisApp = this;
-      console.log('thisApp.data:',thisApp.data);
+      // console.log('thisApp.data:',thisApp.data);
 
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
