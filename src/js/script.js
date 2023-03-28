@@ -369,7 +369,7 @@
     getElements(element){
       const thisCart = this;
 
-      thisCart.dom = this;
+      thisCart.dom = {};
 
       thisCart.dom.wrapper = element;
 
@@ -377,8 +377,11 @@
       //znajduje w thisCart.dom.wrapper pojedynczy element o selektorze zapisanym w select.cart.toggleTrigger
 
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+      thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
+      thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
+      thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+      thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
     }
-
 
     initActions(){
       const thisCart = this;
@@ -410,23 +413,27 @@
       const thisCart = this;
 
       const deliveryFee = settings.cart.defaultDeliveryFee;
-      let totalNumber = 0;
-      let subtotalPrice = 0;
-      let totalPrice = 0;
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0;
+      thisCart.totalPrice = 0;
 
       for(let product of thisCart.products) {
-        totalNumber += product.amount;
-        subtotalPrice += product.price;
+        thisCart.totalNumber += product.amount;
+        thisCart.subtotalPrice += product.price;
       }
+
       if(thisCart.subtotalPrice != 0){
-        totalPrice = subtotalPrice + deliveryFee;
+        thisCart.totalPrice =  thisCart.subtotalPrice + deliveryFee;
       }else {
-        totalPrice = 0;
+        thisCart.totalPrice = 0;
       }
+
       thisCart.dom.deliveryFee.innerHTML = deliveryFee;
-      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
-      thisCart.dom.totalPrice.innerHTML = totalPrice;
-      thisCart.dom.totalNumber.innerHTML = totalNumber;
+      thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
+      for(const elem of thisCart.dom.totalPrice) {
+        elem.innerHTML =  thisCart.totalPrice;
+      }
+      thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
     }
   }
 
