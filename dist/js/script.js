@@ -401,7 +401,7 @@
         thisCart.update();
       });
       thisCart.dom.productList.addEventListener('remove', function(event){
-        thisCart.remove(event.detail.CartProduct);
+        thisCart.remove(event.detail.cartProduct);
       });
     }
 
