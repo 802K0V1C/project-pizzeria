@@ -449,9 +449,7 @@
 
       event.dom.wrapper.remove();
 
-      const productToRemove = thisCart.products.indexOf(event);
-
-      thisCart.products.splice(productToRemove, 1);
+      thisCart.products.splice(thisCart.products.indexOf(event), 1);
 
       thisCart.update();
     }
