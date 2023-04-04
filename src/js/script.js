@@ -388,6 +388,9 @@
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
+      thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
     }
 
     initActions(){
@@ -403,6 +406,46 @@
       thisCart.dom.productList.addEventListener('remove', function(event){
         thisCart.remove(event.detail.cartProduct);
       });
+      thisCart.dom.form.addEventListener('submit', function(event){
+        event.preventDefault();
+
+        thisCart.sendOrder();
+      });
+    }
+
+    sendOrder(){
+      const thisCart = this;
+
+      const url = settings.db.url + '/' + settings.db.orders;
+
+      const payload = {
+        address: thisCart.dom.address.value,
+        phone: thisCart.dom.phone.value,
+        totalPrice: thisCart.dom.totalPrice,
+        subtotalPrice: thisCart.dom.subtotalPrice,
+        totalNumber:  thisCart.dom.totalNumber,
+        deliveryFee:  settings.cart.defaultDeliveryFee,
+        products: [],
+      };
+
+      for(let prod of thisCart.products) {
+        payload.products.push(prod.getData());
+      }
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      };
+
+      fetch(url, options)
+        .then(function(response){
+          return response.json();
+        }).then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+        });
     }
 
     add(menuProduct){
@@ -527,6 +570,22 @@
 
         thisCartProduct.remove();
       });
+    }
+
+    getData(){
+
+      const thisCartProduct = this;
+
+      const prepareGetDataProducts = {
+        id: thisCartProduct.id,
+        amount:thisCartProduct.amount,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        name: thisCartProduct.name,
+        params: thisCartProduct.params
+      };
+
+      return prepareGetDataProducts;
     }
   }
 
