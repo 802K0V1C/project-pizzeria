@@ -67,3 +67,5 @@ class AmountWidget{
     thisWidget.element.dispatchEvent(event);
   }
 }
+
+export default AmountWidget;

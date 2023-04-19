@@ -85,3 +85,5 @@ class CartProduct {
     return prepareGetDataProducts;
   }
 }
+
+export default CartProduct;
