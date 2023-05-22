@@ -3,18 +3,18 @@ class BaseWidget{
     const thisWidget = this;
 
     thisWidget.dom = {};
-    thisWidget.dom.wrapperElement = wrapperElement;
+    thisWidget.dom.wrapper = wrapperElement;
 
     thisWidget.correctValue = initialValue;
   }
 
-  get Value(){
+  get value(){
     const thisWidget = this;
 
     return thisWidget.correctValue;
   }
 
-  set Value(value){
+  set value(value){
     const thisWidget = this;
 
     const newValue = thisWidget.parseValue(value);
@@ -58,7 +58,7 @@ class BaseWidget{
     const event = new CustomEvent('updated', {
       bubbles: true
     });
-    thisWidget.element.dispatchEvent(event);
+    thisWidget.dom.wrapper.dispatchEvent(event);
   }
 }
 

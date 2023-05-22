@@ -21,8 +21,8 @@ class AmountWidget extends BaseWidget{
 
   isValid(value){
     return !isNaN(value)
-    && value >= settings.ammountWidget.defaultMin
-    && value <= settings.ammountWidget.defaultMax;
+    && value >= settings.amountWidget.defaultMin
+    && value <= settings.amountWidget.defaultMax;
   }
 
   renderValue(){
