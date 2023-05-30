@@ -64,7 +64,7 @@ class Booking {
       });
   }
 
-  render(wrapper){
+  render(element){
     const thisBooking = this;
 
     const generatedHTML = templates.bookingWidget();
@@ -74,11 +74,11 @@ class Booking {
     bookingWrapper.appendChild(generatedDOM);
 
     thisBooking.dom = { 
-      // wrapper: element,
-      peopleAmount: wrapper.querySelector(select.booking.peopleAmount),
-      hoursAmount: wrapper.querySelector(select.booking.hoursAmount),
-      datePicker: wrapper.querySelector(select.widgets.datePicker),
-      hourPicker: wrapper.querySelector(select.widgets.hourPicker),
+      wrapper: element,
+      peopleAmount: element.querySelector(select.booking.peopleAmount),
+      hoursAmount: element.querySelector(select.booking.hoursAmount),
+      datePicker: element.querySelector(select.widgets.datePicker.wrapper),
+      hourPicker: element.querySelector(select.widgets.hourPicker.wrapper),
     };
   }
 
