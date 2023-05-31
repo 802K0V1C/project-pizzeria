@@ -137,9 +137,9 @@ class Booking {
       if(
         !allAvalible
         &&
-        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) 
       ){
-        table.classlist.add(classNames.booking.tableBooked);
+        table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       } 
@@ -162,7 +162,7 @@ class Booking {
       hoursAmount: element.querySelector(select.booking.hoursAmount),
       datePicker: element.querySelector(select.widgets.datePicker.wrapper),
       hourPicker: element.querySelector(select.widgets.hourPicker.wrapper),
-      tables: element.querySelector(select.booking.tables),
+      tables: element.querySelectorAll(select.booking.tables),
     };
   }
 
