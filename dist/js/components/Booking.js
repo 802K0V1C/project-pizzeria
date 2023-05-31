@@ -37,9 +37,9 @@ class Booking {
     };
 
     const urls = {
-      booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking.join('&'),
-      eventsCurrent: settings.db.url + '/' + settings.db.event + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsRepeat.join('&'),
+      booking: settings.db.url + '/' + settings.db.bookings + '?' + params.booking.join('&'),
+      eventsCurrent: settings.db.url + '/' + settings.db.events + '?' + params.eventsCurrent.join('&'),
+      eventsRepeat: settings.db.url + '/' + settings.db.events + '?' + params.eventsRepeat.join('&'),
     };
 
     Promise.all([
@@ -48,29 +48,29 @@ class Booking {
       fetch(urls.eventsRepeat),
     ])
       .then(function(allResponses){
-        const bookingsResposne = allResponses[0];
+        const bookingResposne = allResponses[0];
         const eventsCurrentResponse = allResponses[1];
         const eventsRepeatResponse = allResponses[2];
         return Promise.all([ 
-          bookingsResposne.json(),
+          bookingResposne.json(),
           eventsCurrentResponse.json(),
           eventsRepeatResponse.json(),
         ]);
       })
-      .then(function([bookings, eventsCurrent, eventsRepeat]){
+      .then(function([booking, eventsCurrent, eventsRepeat]){
         // console.log(bookings);
         // console.log(eventsCurrent);
         // console.log(eventsRepeat);
-        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+        thisBooking.parseData(booking, eventsCurrent, eventsRepeat);
       });
   }
 
-  parseData(bookings, eventsCurrent, eventsRepeat){
+  parseData(booking, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
     thisBooking.booked = {};
 
-    for(let item of bookings){
+    for(let item of booking){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
 
