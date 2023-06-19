@@ -171,7 +171,22 @@
           background: $color-dark;
           opacity: 0.4;
         }
-  
+      }
+    }
+
+        &.selected {
+          color: $color-light;
+    
+          &::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: #43d763;
+            opacity: 0.4;
+          }
       }
     }
   
@@ -192,7 +207,7 @@
       right: 40px;
       top: 180px;
     }
-  }
+
   
   .booking-options {
     @include flex(row, flex-start, space-between);
