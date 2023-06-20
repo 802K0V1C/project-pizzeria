@@ -3,6 +3,7 @@ export const select = {
     bookingWidget: '#template-booking-widget',
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product', // CODE ADDED
+    homeWidget: '#template-home-widget',
   },
   containerOf: {
     menu: '#product-list',
@@ -55,6 +56,7 @@ export const select = {
   },
   nav: {
     links: '.main-nav a',
+    pictureLinks: '.home-image a',
   },
   // CODE ADDED START
   cart: {
@@ -117,12 +119,12 @@ export const settings = {
   },
   // CODE ADDED END
   db: {
-    url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
     products: 'products',
     orders: 'orders',
     product: 'product',
     bookings: 'bookings',
-    event: 'events',
+    events: 'events',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
     notRepeatParam: 'repeat=false',
@@ -146,4 +148,6 @@ export const templates = {
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   // CODE ADDED END
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
+  
+  home: Handlebars.compile(document.querySelector(select.templateOf.homeWidget).innerHTML),
 };
